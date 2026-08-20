@@ -63,20 +63,6 @@ export const locations: Location[] = [
     },
   },
   {
-    id: 'brooklyn-heights-promenade',
-    name: 'Brooklyn Heights Promenade',
-    shortLabel: "The ferry's absence, at a remove",
-    lat: 40.6975,
-    lng: -73.9968,
-    blurb:
-      "Overlooking the water during the twentieth-century decades without ferry service — the vantage from which Truman Capote's Brooklyn Heights memoir is written.",
-    image: {
-      src: '/images/brooklyn-heights-promenade.jpg',
-      alt: 'View north along the Brooklyn Heights Promenade, a railed walkway with benches beside trees, overlooking the Lower Manhattan skyline and the East River.',
-      caption: 'The Brooklyn Heights Promenade, 2017. Photo by Acroterion, Wikimedia Commons (CC BY-SA 4.0).',
-    },
-  },
-  {
     id: 'brooklyn-heights-henry-cranberry',
     name: 'Brooklyn Heights — Henry & Cranberry Streets',
     shortLabel: "Whitman's Heights addresses",

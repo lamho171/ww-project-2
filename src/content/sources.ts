@@ -74,14 +74,6 @@ export const sources: Source[] = [
     note: 'Location pin coordinates are approximate placements for the general place associated with each map location, plotted by the project author rather than a geocoding service.',
     verified: true,
   },
-  {
-    id: 'buddhist-rebirth-dependent-origination',
-    citation:
-      'Comparative material on rebirth (punarbhava) and dependent origination (pratītyasamutpāda) in Buddhist philosophy.',
-    note: '[SOURCE TO VERIFY] — cite a specific scholarly introduction to Buddhist philosophy used in coursework; avoid treating any single source as representative of all Buddhist traditions.',
-    verified: false,
-  },
-
   // --- Era I: The Everyday Crossing, 1850s-1890s ---
   {
     id: 'bulkeley-diary',
@@ -188,14 +180,6 @@ export const sources: Source[] = [
     citation: 'Detroit Photographic Company. South Street and the Brooklyn Bridge. c. 1899–1924.',
     note: 'Beinecke Rare Book & Manuscript Library, Yale University, via Wikimedia Commons. Public domain (published before 1923). Used alongside the ferry life-cycle timeline.',
     url: 'https://commons.wikimedia.org/wiki/File:South_Street_Seaport,_Detroit_Photographic_Company_(0616).jpg',
-    verified: true,
-  },
-  {
-    id: 'image-brooklyn-heights-promenade',
-    citation: 'Acroterion. Brooklyn Heights Promenade NY1.jpg. 2017.',
-    note: 'Wikimedia Commons, licensed CC BY-SA 4.0. Used as the map image for the Brooklyn Heights Promenade location.',
-    url: 'https://commons.wikimedia.org/wiki/File:Brooklyn_Heights_Promenade_NY1.jpg',
-    retrievalDate: '2026-08-20',
     verified: true,
   },
   {

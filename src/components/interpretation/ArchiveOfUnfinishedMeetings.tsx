@@ -49,7 +49,7 @@ export function ArchiveOfUnfinishedMeetings() {
     <div className="archive">
       <p className="privacy-note">
         Some of the entries below are &ldquo;seed entry&rdquo; &mdash; meaning that they were
-        written by the author to demonstrate what the site will look like with real entries. They
+        written by the author (or her friends) to demonstrate what the site will look like with real entries. They
         are completely anonymous.
       </p>
 

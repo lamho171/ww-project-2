@@ -348,9 +348,9 @@ export const voices: ArchiveEntry[] = [
     title: 'An Experimental Ride from the Navy Yard to Midtown Manhattan',
     voiceType: 'fieldwork',
     location: 'fulton-ferry-landing',
-    summary: "A ferry ride from the Brooklyn Navy Yard to Midtown Manhattan, recounted in the rider's own words.",
+    summary: "A ferry ride from the Brooklyn Navy Yard to Midtown Manhattan.",
     excerpt:
-      "Boarded at the Navy Yard expecting a Whitman-grade epiphany; instead spent ten minutes glaring at a cloud the size of New Jersey, daring it to rain before Midtown. It didn't. The Williamsburg Bridge did its moody silhouette thing, a seagull judged my seat choice, and somewhere past that I had the epiphany anyway.",
+      'On August 6, I took the ferry from the Brooklyn Navy Yard to Midtown Manhattan. The ride was smooth, almost surprisingly so. From my seat, the skyline slowly opened in front of me, with Brooklyn on one side and Manhattan on the other. There was the breeze, the warmth of the sun, and what Whitman calls the "shimmering track of beams" across the water. For a moment, the city felt a bit calmer and more spacious than it usually does from the MTA underground, despite the occasional noise from the engine (if you happen to sit close to one).\n\nFor me, the ride was an adventure, but for many of the people around me, it appeared to be simply their commute. That difference fascinated me. The same crossing could be mundane and glamorous at once -- an ordinary trip to work for one person and a chance to rediscover New York for another.\n\nThe ferry is a great alternative when today is simply not the day to deal with the rats, the subway smell, the heat trapped on the platform, or the hustling crowds pushing through underground tunnels. It may not always be the fastest way to move through the city, but it allows you to see the journey itself. Instead of disappearing beneath New York, you can watch it approach from the water.',
     excerptVerified: true,
     motifs: ['skyline-spectacle', 'crowds-strangers'],
     mundaneGlamorous: 'both',

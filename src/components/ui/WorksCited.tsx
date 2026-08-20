@@ -14,7 +14,6 @@ export function WorksCited() {
               </a>
             </>
           ) : null}
-          {source.note ? <span className="works-cited__note"> {source.note}</span> : null}
         </li>
       ))}
     </ol>

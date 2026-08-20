@@ -19,9 +19,6 @@ export function LocationPanel({ location }: LocationPanelProps) {
         </figure>
       ) : null}
       <p>{location.blurb}</p>
-      {location.todo ? (
-        <p className="content-todo-inline">[SOURCE TO VERIFY] {location.todo}</p>
-      ) : null}
 
       <p className="layer-kicker">
         {connectedVoices.length > 0

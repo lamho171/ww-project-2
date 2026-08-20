@@ -49,7 +49,15 @@ export function ArchiveCard({ entry }: ArchiveCardProps) {
         <p className="archive-card__summary">{entry.summary}</p>
 
         {entry.excerptVerified && entry.excerpt ? (
-          <blockquote className="archive-card__excerpt">&ldquo;{entry.excerpt}&rdquo;</blockquote>
+          <blockquote className="archive-card__excerpt">
+            {entry.excerpt.split('\n\n').map((paragraph, i, all) => (
+              <p key={i}>
+                {i === 0 ? '“' : null}
+                {paragraph}
+                {i === all.length - 1 ? '”' : null}
+              </p>
+            ))}
+          </blockquote>
         ) : null}
 
         <p className="archive-card__whitman">{entry.whitmanConnection}</p>

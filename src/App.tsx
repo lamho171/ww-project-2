@@ -200,7 +200,7 @@ function App() {
           */}
 
           <section id="reflection" className="reflection-section" aria-labelledby="reflection-heading">
-            <SectionHeading eyebrow="Critical Reflection" title="Whitman and Buddhist Rebirth" id="reflection-heading" />
+            <SectionHeading eyebrow="Critical Reflection" title="Whitman, Buddhist Reincarnation and The Red Thread of Fate" id="reflection-heading" />
             <CriticalReflection />
           </section>
 
