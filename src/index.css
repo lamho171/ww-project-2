@@ -1,0 +1,97 @@
+:root {
+  --color-paper: #f4ecdd;
+  --color-paper-deep: #e9dfc9;
+  --color-ink: #211d18;
+  --color-ink-soft: #4a443c;
+  --color-river: #2f5d73;
+  --color-river-deep: #1d3f50;
+  --color-fog: #c9d3d3;
+  --color-charcoal: #33322f;
+  --color-accent: #a4623a;
+  --color-accent-deep: #7c4526;
+  --color-line: rgba(33, 29, 24, 0.16);
+  --color-focus: #1d5f8a;
+
+  --font-display: Georgia, 'Iowan Old Style', 'Palatino Linotype', 'Times New Roman', serif;
+  --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  --content-max: 46rem;
+  --radius: 4px;
+
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 112.5%;
+  scroll-padding-top: 5rem;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--color-paper) url('/images/site-background.jpg') center center / cover no-repeat
+    fixed;
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (max-width: 760px), (prefers-reduced-motion: reduce) {
+  body {
+    /* iOS Safari renders fixed backgrounds unreliably; scroll with the page instead. */
+    background-attachment: scroll;
+  }
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-ink);
+}
+
+a {
+  color: var(--color-river-deep);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  padding: 0.75rem 1.25rem;
+  z-index: 100;
+  border-radius: 0 0 var(--radius) 0;
+}
+
+.skip-link:focus {
+  left: 0;
+}
