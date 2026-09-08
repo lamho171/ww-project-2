@@ -1,57 +1,77 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { supabase } from '../../lib/supabaseClient'
 import { archivePrompt, seedArchiveEntries, type ArchiveEntry } from '../../content/archive'
 
-const STORAGE_KEY = 'ww-archive-entries'
 const MAX_ENTRY_LENGTH = 220
 
-function readOwnEntries(): ArchiveEntry[] {
-  const stored = window.localStorage.getItem(STORAGE_KEY)
-  if (!stored) return []
-  try {
-    const parsed = JSON.parse(stored)
-    if (!Array.isArray(parsed)) return []
-    return parsed
-  } catch {
-    return []
-  }
-}
-
-function writeOwnEntries(entries: ArchiveEntry[]) {
-  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(entries))
-}
-
-function makeId() {
-  return typeof crypto !== 'undefined' && 'randomUUID' in crypto
-    ? crypto.randomUUID()
-    : `own-${Date.now()}-${Math.random().toString(16).slice(2)}`
-}
-
 export function ArchiveOfUnfinishedMeetings() {
-  const [ownEntries, setOwnEntries] = useState<ArchiveEntry[]>(() => readOwnEntries())
+  const [sharedEntries, setSharedEntries] = useState<ArchiveEntry[]>([])
   const [draft, setDraft] = useState('')
+  const [status, setStatus] = useState<'loading' | 'ready' | 'error' | 'offline'>('loading')
+  const [submitting, setSubmitting] = useState(false)
 
-  function handleAdd() {
-    const text = draft.trim()
-    if (!text) return
-    const next = [...ownEntries, { id: makeId(), text: text.slice(0, MAX_ENTRY_LENGTH) }]
-    setOwnEntries(next)
-    writeOwnEntries(next)
+  useEffect(() => {
+    if (!supabase) {
+      setStatus('offline')
+      return
+    }
+    let cancelled = false
+    supabase
+      .from('unfinished_meetings')
+      .select('id, text')
+      .order('created_at', { ascending: false })
+      .limit(200)
+      .then(({ data, error }) => {
+        if (cancelled) return
+        if (error) {
+          setStatus('error')
+          return
+        }
+        setSharedEntries(data ?? [])
+        setStatus('ready')
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [])
+
+  async function handleAdd() {
+    const text = draft.trim().slice(0, MAX_ENTRY_LENGTH)
+    if (!text || !supabase) return
+    setSubmitting(true)
+    const { data, error } = await supabase
+      .from('unfinished_meetings')
+      .insert({ text })
+      .select('id, text')
+      .single()
+    setSubmitting(false)
+    if (error) {
+      setStatus('error')
+      return
+    }
+    setSharedEntries((prev) => [data, ...prev])
     setDraft('')
-  }
-
-  function handleDelete(id: string) {
-    const next = ownEntries.filter((entry) => entry.id !== id)
-    setOwnEntries(next)
-    writeOwnEntries(next)
   }
 
   return (
     <div className="archive">
       <p className="privacy-note">
-        Some of the entries below are &ldquo;seed entry&rdquo; &mdash; meaning that they were
-        written by the author (or her friends) to demonstrate what the site will look like with real entries. They
-        are completely anonymous.
+        Some of the entries below are &ldquo;seed entries&rdquo; &mdash; written by the author (or
+        her friends) to demonstrate what the site looks like with real entries. Everything else is
+        a real entry left by a visitor, stored publicly and anonymously (no account, no name, no
+        way to trace it back to you).
       </p>
+
+      {status === 'offline' && (
+        <p className="privacy-note">
+          The shared archive isn&rsquo;t connected right now, so new entries can&rsquo;t be saved.
+        </p>
+      )}
+      {status === 'error' && (
+        <p className="privacy-note">
+          Something went wrong loading or saving the shared archive. Please try again shortly.
+        </p>
+      )}
 
       <ul className="archive-entries">
         {seedArchiveEntries.map((entry) => (
@@ -60,20 +80,10 @@ export function ArchiveOfUnfinishedMeetings() {
             <p className="archive-entry__meta">Seed entry, written for this project</p>
           </li>
         ))}
-        {ownEntries.map((entry) => (
-          <li key={entry.id} className="archive-entry archive-entry--own">
+        {sharedEntries.map((entry) => (
+          <li key={entry.id} className="archive-entry">
             <p className="archive-entry__text">&ldquo;{entry.text}&rdquo;</p>
-            <div className="archive-entry__own-footer">
-              <p className="archive-entry__meta">Your entry, visible only to you</p>
-              <button
-                type="button"
-                className="archive-entry__delete"
-                onClick={() => handleDelete(entry.id)}
-                aria-label="Delete this entry"
-              >
-                Delete
-              </button>
-            </div>
+            <p className="archive-entry__meta">Left by a visitor</p>
           </li>
         ))}
       </ul>
@@ -89,15 +99,16 @@ export function ArchiveOfUnfinishedMeetings() {
           rows={3}
           maxLength={MAX_ENTRY_LENGTH}
           placeholder="One sentence is plenty."
+          disabled={status === 'offline'}
         />
         <div className="reflection-actions">
           <button
             type="button"
             className="button button--primary"
             onClick={handleAdd}
-            disabled={!draft.trim()}
+            disabled={!draft.trim() || submitting || status === 'offline'}
           >
-            Add to the archive
+            {submitting ? 'Adding…' : 'Add to the archive'}
           </button>
         </div>
       </div>

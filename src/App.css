@@ -560,10 +560,6 @@ main section {
   padding: 0.85rem 1rem;
 }
 
-.archive-entry--own {
-  border-left-color: var(--color-accent);
-}
-
 .archive-entry__text {
   font-family: var(--font-display);
   font-style: italic;
@@ -577,24 +573,6 @@ main section {
   letter-spacing: 0.05em;
   font-weight: 700;
   color: var(--color-ink-soft);
-}
-
-.archive-entry__own-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-}
-
-.archive-entry__delete {
-  background: none;
-  border: none;
-  color: var(--color-accent-deep);
-  font-size: 0.75rem;
-  font-weight: 700;
-  cursor: pointer;
-  padding: 0.25rem;
-  min-height: 44px;
 }
 
 .archive-form {

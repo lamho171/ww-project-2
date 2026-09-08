@@ -30,7 +30,28 @@ npm run build
 ```
 
 TypeScript project build followed by a Vite production build, output to `dist/`. Preview locally
-with `npm run preview`. The site is a static bundle: no server, database, or API key required.
+with `npm run preview`. The site itself is a static bundle requiring no server; the one exception
+is the "Archive of Unfinished Meetings" contribute feature, which talks directly to Supabase from
+the browser (see below).
+
+## Backend: Supabase for the "Archive of Unfinished Meetings"
+
+Visitor entries in `#contribute` are stored in a Supabase Postgres table (`unfinished_meetings`)
+rather than only in `localStorage`, so entries are shared across visitors instead of private to one
+browser. There is no custom server: the React app talks to Supabase directly using its public
+anon key, and Row Level Security policies (in `supabase/schema.sql`) restrict that key to
+inserting and reading rows — no update or delete policy exists, so the public key can't alter or
+remove anyone's entry.
+
+To connect a Supabase project:
+
+1. Create a free project at [supabase.com](https://supabase.com).
+2. Run `supabase/schema.sql` in the project's SQL editor to create the table and its policies.
+3. Copy `.env.example` to `.env.local` and fill in the project's URL and anon key (Project
+   Settings → API).
+4. `npm run dev` — the contribute form now reads/writes the shared table. Without a `.env.local`,
+   `src/lib/supabaseClient.ts` returns `null` and the component falls back to an "offline" message
+   instead of throwing.
 
 ## Lint
 
@@ -132,8 +153,9 @@ web use:
   permission needed, student-owned, etc.), not just implied.
 - The separate **"Archive of Unfinished Meetings"** section (`#contribute`) is a visitor
   reflection feature unrelated to the documentary archive: visitors add a one-sentence note about
-  someone they feel connected to, stored only in that browser's `localStorage`, never transmitted.
-  Seed entries are clearly labeled "written for this project," not presented as real submissions.
+  someone they feel connected to, stored in a shared Supabase table (see "Backend" above) so it's
+  visible to other visitors. Seed entries are clearly labeled "written for this project," not
+  presented as real submissions.
 - Animations (background ripple, marker pulse) respect `prefers-reduced-motion`.
 
 ## Project history

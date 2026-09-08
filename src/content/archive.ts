@@ -4,11 +4,10 @@ export interface ArchiveEntry {
 }
 
 // SEED CONTENT — written for this project to illustrate the shape of the archive.
-// These are not real visitor submissions. Because this is a static site with no
-// backend or database (per the assignment's technical requirements), entries a
-// visitor writes are saved only in their own browser, not shared with anyone
-// else. These seed entries let the page demonstrate what a fuller, shared
-// archive might feel like without fabricating other people's words.
+// These are not real visitor submissions. Real visitor entries are stored in a
+// Supabase table (see supabase/schema.sql) and shown to every visitor; these
+// seed entries stay mixed in so the page never looks empty and so no one else's
+// words are fabricated to fill the gap.
 export const seedArchiveEntries: ArchiveEntry[] = [
   {
     id: 'seed-3',
